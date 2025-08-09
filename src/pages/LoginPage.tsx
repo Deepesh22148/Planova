@@ -2,12 +2,9 @@
 import React from 'react'
 import {
     Card,
-    CardAction,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
-    CardTitle,
 } from "@/components/ui/card"
 import Image from "next/image";
 import {Compass, Eye, EyeOff, Key, Mail, MapPin, Plane, Route , Map} from 'lucide-react';
@@ -188,7 +185,7 @@ const LoginPage = () => {
             <div className="flex flex-col gap-4 w-[35em] bg-white text-sm text-muted-foreground p-4 rounded-xl shadow-2xl">
                 {/* Title */}
                 <div className="w-full text-center font-semibold text-gray-800">
-                    What you'll get with Planova
+                    What you&apos;ll get with Planova
                 </div>
 
                 {/* Features */}

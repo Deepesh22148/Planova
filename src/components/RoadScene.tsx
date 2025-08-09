@@ -1,13 +1,16 @@
 import { useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Sky, ContactShadows, MeshReflectorMaterial, RoundedBox, Environment, Cloud, Stars } from '@react-three/drei';
+import { Sky, ContactShadows, MeshReflectorMaterial, RoundedBox, Environment, Cloud } from '@react-three/drei';
+import type { ElementRef } from 'react';
 
+
+type SkyImpl = ElementRef<typeof Sky>;
 import * as THREE from 'three';
 
-function Car({ color = 0xff0000, position, userData }: { 
-  color?: number; 
+function Car({ color = 0xff0000, position, userData }: {
+  color?: number;
   position: [number, number, number];
-  userData?: any;
+  userData?: { angle: number; radius: number; speed: number } ;
 }) {
   const carRef = useRef<THREE.Group>(null);
 
@@ -29,7 +32,7 @@ function Car({ color = 0xff0000, position, userData }: {
       <RoundedBox position={[0, 0.5, 0]} args={[2, 0.6, 1]} radius={0.15} smoothness={4} castShadow>
         <meshStandardMaterial color={color} metalness={0.4} roughness={0.5} />
       </RoundedBox>
-      
+
       {/* Cabin */}
       <RoundedBox position={[0, 0.9, 0]} args={[1.2, 0.5, 0.9]} radius={0.12} smoothness={3} castShadow>
         <meshStandardMaterial color={0xdddddd} metalness={0.2} roughness={0.3} />
@@ -74,7 +77,7 @@ function Tree({ position }: { position: [number, number, number] }) {
         <cylinderGeometry args={[0.2, 0.2, 2]} />
         <meshStandardMaterial color={0x8b4513} />
       </mesh>
-      
+
       {/* Foliage */}
       <mesh position={[position[0], 2.5, position[2]]} castShadow>
         <sphereGeometry args={[1, 8, 8]} />
@@ -87,24 +90,23 @@ function Tree({ position }: { position: [number, number, number] }) {
 function Scene() {
   const { scene, camera, gl } = useThree();
 
-  // Refs for dynamic sky and lights
-  const skyRef = useRef<any>(null);
+
+  const skyRef = useRef<SkyImpl>(null);
   const sunLightRef = useRef<THREE.DirectionalLight>(null);
   const moonLightRef = useRef<THREE.DirectionalLight>(null);
   const hemiRef = useRef<THREE.HemisphereLight>(null);
   const sunMeshRef = useRef<THREE.Mesh>(null);
   const moonMeshRef = useRef<THREE.Mesh>(null);
-  const starsRef = useRef<THREE.Group>(null as any);
-  const ambientRef = useRef<THREE.AmbientLight>(null);
+  const starsRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
 
   useEffect(() => {
     // Set up atmospheric fog for smooth horizon blending
     scene.fog = new THREE.FogExp2(0xb7d6ff, 0.018);
-    
+
     // Set initial camera position
     camera.position.set(0, 5, 12);
-    
+
     // Configure renderer like original
     gl.setPixelRatio(window.devicePixelRatio);
     gl.shadowMap.enabled = true;
@@ -120,8 +122,8 @@ function Scene() {
     const sunPos = new THREE.Vector3(Math.cos(theta) * radius, Math.sin(theta) * height, Math.sin(theta) * radius);
     const moonPos = sunPos.clone().multiplyScalar(-1);
 
-    if ((skyRef.current as any)?.material?.uniforms?.sunPosition?.value) {
-      (skyRef.current as any).material.uniforms.sunPosition.value.set(sunPos.x, sunPos.y, sunPos.z);
+    if (skyRef.current?.material?.uniforms?.sunPosition?.value) {
+      skyRef.current.material.uniforms.sunPosition.value.set(sunPos.x, sunPos.y, sunPos.z);
     }
 
     if (sunLightRef.current) {
@@ -158,7 +160,7 @@ function Scene() {
     }
 
     if (starsRef.current) {
-      (starsRef.current as any).visible = sunPos.y < 0;
+      starsRef.current.visible = sunPos.y < 0;
     }
   });
 
@@ -224,7 +226,7 @@ function Scene() {
           <planeGeometry args={[400, 400]} />
           <meshStandardMaterial color={0x5b7d3a} roughness={0.95} metalness={0.0} />
         </mesh>
-      
+
       {/* Destination area (parking lot) */}
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0]} receiveShadow>
           <planeGeometry args={[10, 10]} />
@@ -247,7 +249,7 @@ function Scene() {
         <ContactShadows position={[0, 0.01, 0]} opacity={0.5} scale={20} blur={2.5} far={10} />
         {/* Main parked car */}
         <Car color={0xff4444} position={[0, 0, 0]} />
-      
+
       {/* Moving cars */}
       {movingCarsData.map((carData, index) => (
         <Car
@@ -257,7 +259,7 @@ function Scene() {
           userData={carData.userData}
         />
       ))}
-      
+
       {/* Trees */}
       {treesData.map((position, index) => (
         <Tree key={index} position={position} />
@@ -270,11 +272,11 @@ export default function RoadScene() {
   return (
     <div className="w-full h-screen">
       <Canvas
-        camera={{ 
-          fov: 60, 
-          aspect: window.innerWidth / window.innerHeight, 
-          near: 0.1, 
-          far: 1000 
+        camera={{
+          fov: 60,
+          aspect: window.innerWidth / window.innerHeight,
+          near: 0.1,
+          far: 1000
         }}
         shadows
         gl={{ antialias: true }}
