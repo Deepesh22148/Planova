@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme inline {
+  --font-playfair-display: var(--font-playfair-display);
+  --font-inter: var(--font-inter);
+}
+
 @layer base {
   :root {
     --background: 220 15% 97%;
