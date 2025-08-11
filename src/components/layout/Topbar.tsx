@@ -1,0 +1,84 @@
+"use client"
+
+import React from 'react'
+import Image from "next/image"
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import {House, Info, Wrench} from "lucide-react";
+
+const Topbar = () => {
+
+    const pathname = usePathname();
+    const active =
+        "relative text-blue-600 font-semibold after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-gradient-to-r after:from-blue-400 after:to-blue-600 after:rounded-full after:transition-all after:duration-300";
+    const normal =
+        "relative text-gray-700 hover:text-blue-600 transition-colors duration-300 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-blue-400 after:to-blue-600 after:rounded-full hover:after:w-full after:transition-all after:duration-300";
+
+    return (
+        <header className="sticky top-0 z-50 bg-white backdrop-blur-md shadow-sm h-16 text-black font-playfair-display">
+            <div className="max-w-7xl mx-auto flex justify-between items-center h-full">
+
+                <div className="flex items-center space-x-4 hover:cursor-pointer h-full px-3">
+                    <Image src="/favicon.png" alt="logo" width={40} height={40} className="rounded-md" />
+                    <span className="text-2xl font-semibold ">Planova</span>
+                </div>
+
+                <div className={"flex w-1/2 p-2 justify-around items-center"}>
+                    <Link
+                        href="/"
+                        className={pathname === "/" ? active : normal}
+                    >
+                        <div className={"flex items-center p-2 gap-4"}>
+                            <House className={"h-4 w-4 "}/>
+                            <span>
+                                Home
+                            </span>
+                        </div>
+                    </Link>
+
+                    <Link
+                        href="/services"
+                        className={pathname === "/services" ? active : normal}
+                    >
+                        <div className={"flex items-center p-2 gap-2"}>
+                            <Wrench className={"h-4 w-4"} />
+                            <span>
+                                Services
+                            </span>
+                        </div>
+                    </Link>
+
+                    <Link
+                        href="/about"
+                        className={pathname === "/about" ? active : normal}
+                    >
+                        <div className={"flex items-center p-2 gap-2"}>
+                            <Info className={"h-4 w-4"} />
+                            <span>About</span>
+                        </div>
+                    </Link>
+
+                    <Link
+                        href="/auth/sign-in"
+                        className={pathname === "/auth/sign-in" ? active : normal}
+                    >
+                        <div className={"flex items-center p-2 gap-2"}>
+                            <span>Sign In</span>
+                        </div>
+                    </Link>
+
+                    <Link
+                        href="/auth/sign-up"
+                        className={pathname === "/auth/sign-up" ? active : normal}
+                    >
+                        <div className={"flex items-center p-2 gap-2"}>
+                            <span>Sign Up</span>
+                        </div>
+                    </Link>
+                </div>
+            </div>
+        </header>
+    )
+}
+
+export default Topbar

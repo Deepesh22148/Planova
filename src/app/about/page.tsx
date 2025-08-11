@@ -1,9 +1,9 @@
 import React from 'react'
-import SignInPage from "@/pages/SignInPage";
+import AboutPage from "@/pages/AboutPage";
 
 const Page = () => {
     return (
-        <SignInPage />
+        <AboutPage />
     )
 }
 
