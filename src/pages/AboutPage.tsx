@@ -1,12 +1,9 @@
 import React from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Users, Target, Mail, Phone, MapPin, Heart, Lightbulb, Zap } from "lucide-react";
-// import aboutHero from "@/public/about-hero.jpg";
-// import devTeam from "@/assets/dev-team.jpg";
-// import contactIllustration from "@/assets/contact-illustration.jpg";
+import Image from "next/image"
 
 const About = () => {
     return (
@@ -26,16 +23,18 @@ const About = () => {
                                     <span className="text-accent"> Planning</span>
                                 </h1>
                                 <p className="text-xl text-primary-foreground/90 leading-relaxed">
-                                    We're passionate about creating tools that empower teams and individuals 
+                                    We&apos;re passionate about creating tools that empower teams and individuals
                                     to plan better, collaborate seamlessly, and achieve their goals with confidence.
                                 </p>
                             </div>
                         </div>
                         <div className="lg:block">
-                            <img 
-                                src="/about-hero.jpg" 
+                            <Image
+                                src="/about-hero.jpg"
                                 alt="Team collaboration and planning"
                                 className="w-full h-auto rounded-2xl shadow-2xl border border-primary-foreground/10"
+                                height={400}
+                                width={400}
                             />
                         </div>
                     </div>
@@ -54,7 +53,7 @@ const About = () => {
                             Revolutionizing How Teams Plan
                         </h2>
                         <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                            We envision a world where planning is intuitive, collaboration is effortless, 
+                            We envision a world where planning is intuitive, collaboration is effortless,
                             and every team has the tools they need to turn ideas into reality.
                         </p>
                     </div>
@@ -66,7 +65,7 @@ const About = () => {
                             </div>
                             <h3 className="text-2xl font-bold text-foreground mb-4">Innovation First</h3>
                             <p className="text-muted-foreground leading-relaxed">
-                                We constantly push boundaries to bring you cutting-edge planning tools 
+                                We constantly push boundaries to bring you cutting-edge planning tools
                                 that adapt to your unique workflow and needs.
                             </p>
                         </Card>
@@ -77,7 +76,7 @@ const About = () => {
                             </div>
                             <h3 className="text-2xl font-bold text-foreground mb-4">Team-Centric</h3>
                             <p className="text-muted-foreground leading-relaxed">
-                                Every feature is designed with collaboration in mind, making it easy for 
+                                Every feature is designed with collaboration in mind, making it easy for
                                 teams of all sizes to work together effectively.
                             </p>
                         </Card>
@@ -88,7 +87,7 @@ const About = () => {
                             </div>
                             <h3 className="text-2xl font-bold text-foreground mb-4">Efficiency Focused</h3>
                             <p className="text-muted-foreground leading-relaxed">
-                                We believe in simplicity and speed, creating tools that enhance productivity 
+                                We believe in simplicity and speed, creating tools that enhance productivity
                                 without adding complexity to your workflow.
                             </p>
                         </Card>
@@ -110,11 +109,11 @@ const About = () => {
                                     The Minds Behind Planova
                                 </h2>
                                 <p className="text-xl text-muted-foreground leading-relaxed">
-                                    We're a passionate team of developers, designers, and product enthusiasts 
+                                    We&apos;re a passionate team of developers, designers, and product enthusiasts
                                     who believe that great software starts with understanding real user needs.
                                 </p>
                             </div>
-                            
+
                             <div className="space-y-6">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="text-center p-4 bg-primary-soft rounded-lg">
@@ -126,21 +125,23 @@ const About = () => {
                                         <div className="text-sm text-text-subtle">Support Available</div>
                                     </div>
                                 </div>
-                                
+
                                 <p className="text-muted-foreground leading-relaxed">
-                                    Our diverse team brings together expertise from various backgrounds - 
-                                    from enterprise software development to startup innovation. We're united 
-                                    by our commitment to creating tools that make planning and collaboration 
+                                    Our diverse team brings together expertise from various backgrounds -
+                                    from enterprise software development to startup innovation. We&apos;re united
+                                    by our commitment to creating tools that make planning and collaboration
                                     effortless for teams worldwide.
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div className="relative">
-                            <img 
+                            <Image
                                 src="/dev-team.jpg"
                                 alt="Development team working together"
                                 className="w-full h-auto rounded-2xl shadow-2xl"
+                                height={100}
+                                width={100}
                             />
                             <div className="absolute -bottom-6 -right-6 bg-card p-6 rounded-xl shadow-lg border">
                                 <div className="text-2xl font-bold text-primary">5+</div>
@@ -160,10 +161,10 @@ const About = () => {
                             <Badge variant="secondary">Contact Us</Badge>
                         </div>
                         <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                            Let's Start a Conversation
+                            Let&apos;s Start a Conversation
                         </h2>
                         <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                            Have questions, feedback, or ideas? We'd love to hear from you. 
+                            Have questions, feedback, or ideas? We&apos;d love to hear from you.
                             Our team is always ready to help and excited to connect.
                         </p>
                     </div>
@@ -179,7 +180,7 @@ const About = () => {
                                         <div>
                                             <h3 className="text-lg font-semibold text-foreground mb-2">Email Us</h3>
                                             <p className="text-muted-foreground mb-3">
-                                                Send us a message and we'll respond within 24 hours.
+                                                Send us a message and we&apos;ll respond within 24 hours.
                                             </p>
                                             <a href="mailto:hello@planova.com" className="text-primary hover:text-primary/80 font-medium">
                                                 hello@planova.com
@@ -224,12 +225,14 @@ const About = () => {
                                 </Card>
                             </div>
                         </div>
-                        
+
                         <div className="text-center">
-                            <img 
+                            <Image
                                 src="/contact-illustration.jpg"
                                 alt="Contact and communication"
                                 className="w-full max-w-md mx-auto h-auto"
+                                height={100}
+                                width={100}
                             />
                         </div>
                     </div>
