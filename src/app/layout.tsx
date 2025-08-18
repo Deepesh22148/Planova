@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display} from "next/font/google";
 import {Inter} from "next/font/google"
 import "./globals.css";
+import dbConnect from "@/lib/dbConnect";
 
 const playfair = Playfair_Display({
     variable: "--font-playfair-display",
@@ -17,6 +18,8 @@ export const metadata: Metadata = {
   title: "Planova - Smart Travel Guide",
   description: "Travel Companion",
 };
+
+const dbConnection = await dbConnect();
 
 export default function RootLayout({
   children,
