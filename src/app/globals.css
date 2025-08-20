@@ -38,6 +38,11 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 213 94% 68%;
 
+    --hero-text: 0 0% 100%;
+    --hero-accent: 218 90% 58%;
+    --hero-description: 210 40% 85%;
+    --hero-overlay: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
+
     /* Travel-themed design tokens */
     --travel-sky: 213 94% 68%;
     --travel-ocean: 197 100% 63%;
