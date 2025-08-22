@@ -6,6 +6,9 @@ import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
 import {Eye, EyeOff, Key, Locate, Mail, Phone, User} from "lucide-react";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
+import {zodResolver} from "@hookform/resolvers/zod"
+import {z} from 'zod';
+
 import dynamic from "next/dynamic";
 
 const SignUpAnimation = dynamic(() => import("@/components/SignUpAnimation"), { ssr: false });
@@ -15,6 +18,7 @@ const SignUpPage = () => {
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
     const [showConfirmPassword, setShowConfirmPassword] = React.useState<boolean>(false);
     const [phone , setPhone] = React.useState<string>();
+
     const filterPhone = (e : React.ChangeEvent<HTMLInputElement>) => {
         const filtered = e?.target?.value?.replace(/[^0-9+\-\s]/g, "");
         setPhone(filtered);
