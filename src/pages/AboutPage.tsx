@@ -10,19 +10,19 @@ const About = () => {
         <DashboardLayout>
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-primary to-accent overflow-hidden">
-                <div className="absolute inset-0 bg-primary/90"></div>
+                <div className="absolute inset-0 bg-blue-100/90"></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div className="space-y-8">
                             <div className="space-y-6">
-                                <Badge className="bg-accent-soft text-accent border-accent/20">
+                                <Badge className="bg-accent-soft text-primary border-primary/50">
                                     About Planova
                                 </Badge>
-                                <h1 className="text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
+                                <h1 className="text-5xl lg:text-6xl font-bold text-black leading-tight">
                                     Building the Future of
-                                    <span className="text-accent"> Planning</span>
+                                    <span className="text-primary"> Planning</span>
                                 </h1>
-                                <p className="text-xl text-primary-foreground/90 leading-relaxed">
+                                <p className="text-xl text-primary-foreground/1000 leading-relaxed">
                                     We&apos;re passionate about creating tools that empower teams and individuals
                                     to plan better, collaborate seamlessly, and achieve their goals with confidence.
                                 </p>
@@ -46,7 +46,7 @@ const About = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <div className="inline-flex items-center gap-2 mb-6">
-                            <Target className="w-6 h-6 text-accent" />
+                            <Target className="w-6 h-6 text-primary" />
                             <Badge variant="secondary">Our Vision</Badge>
                         </div>
                         <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -59,7 +59,7 @@ const About = () => {
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
-                        <Card className="p-8 text-center border-0 bg-feature-bg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <Card className="p-8 text-center border-0 bg-blue-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-soft rounded-full mb-6">
                                 <Lightbulb className="w-8 h-8 text-primary" />
                             </div>
@@ -70,9 +70,9 @@ const About = () => {
                             </p>
                         </Card>
 
-                        <Card className="p-8 text-center border-0 bg-feature-bg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <Card className="p-8 text-center border-0 bg-blue-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                             <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-soft rounded-full mb-6">
-                                <Users className="w-8 h-8 text-accent" />
+                                <Users className="w-8 h-8 text-primary" />
                             </div>
                             <h3 className="text-2xl font-bold text-foreground mb-4">Team-Centric</h3>
                             <p className="text-muted-foreground leading-relaxed">
@@ -81,7 +81,7 @@ const About = () => {
                             </p>
                         </Card>
 
-                        <Card className="p-8 text-center border-0 bg-feature-bg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <Card className="p-8 text-center border-0 bg-blue-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                             <div className="inline-flex items-center justify-center w-16 h-16 bg-success/10 rounded-full mb-6">
                                 <Zap className="w-8 h-8 text-success" />
                             </div>
@@ -96,13 +96,13 @@ const About = () => {
             </section>
 
             {/* Meet The Devs Section */}
-            <section className="py-24 bg-background">
+            <section className="py-24 bg-blue-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="space-y-8">
                             <div className="space-y-6">
                                 <div className="inline-flex items-center gap-2">
-                                    <Heart className="w-6 h-6 text-accent" />
+                                    <Heart className="w-6 h-6 text-primary" />
                                     <Badge variant="secondary">Meet The Devs</Badge>
                                 </div>
                                 <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
@@ -121,7 +121,7 @@ const About = () => {
                                         <div className="text-sm text-text-subtle">Projects Delivered</div>
                                     </div>
                                     <div className="text-center p-4 bg-accent-soft rounded-lg">
-                                        <div className="text-3xl font-bold text-accent">24/7</div>
+                                        <div className="text-3xl font-bold text-primary">24/7</div>
                                         <div className="text-sm text-text-subtle">Support Available</div>
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@ const About = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <div className="inline-flex items-center gap-2 mb-6">
-                            <Mail className="w-6 h-6 text-accent" />
+                            <Mail className="w-6 h-6 text-primary" />
                             <Badge variant="secondary">Contact Us</Badge>
                         </div>
                         <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -192,14 +192,14 @@ const About = () => {
                                 <Card className="p-6 border-0 bg-feature-bg shadow-sm hover:shadow-md transition-all duration-300">
                                     <div className="flex items-start gap-4">
                                         <div className="inline-flex items-center justify-center w-12 h-12 bg-accent-soft rounded-lg">
-                                            <Phone className="w-6 h-6 text-accent" />
+                                            <Phone className="w-6 h-6 text-primary" />
                                         </div>
                                         <div>
                                             <h3 className="text-lg font-semibold text-foreground mb-2">Call Us</h3>
                                             <p className="text-muted-foreground mb-3">
                                                 Available Monday to Friday, 9 AM to 6 PM EST.
                                             </p>
-                                            <a href="tel:+1234567890" className="text-accent hover:text-accent/80 font-medium">
+                                            <a href="tel:+1234567890" className="text-primary hover:text-accent/80 font-medium">
                                                 +1 (234) 567-8900
                                             </a>
                                         </div>
