@@ -37,7 +37,6 @@ const userSchema: Schema<UserType> = new Schema<UserType>({
     },
     phone: {
         type: Number,
-        unique: true,
     }
 }, {
     timestamps: true
