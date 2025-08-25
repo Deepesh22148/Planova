@@ -15,9 +15,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "@/schemas/signupSchema";
 import { z } from "zod";
-
 import dynamic from "next/dynamic";
 import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const SignUpAnimation = dynamic(() => import("@/components/SignUpAnimation"), {
   ssr: false,
@@ -28,6 +29,14 @@ const SignUpPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] =
     React.useState<boolean>(false);
   const [phone, setPhone] = React.useState<string>("");
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
+  React.useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
 
   const {
     register,
@@ -42,8 +51,11 @@ const SignUpPage = () => {
     setPhone(filtered);
   };
 
-  const onSubmit = async (data: z.infer<typeof signupSchema> ,e?: React.BaseSyntheticEvent) => {
-     e?.preventDefault();
+  const onSubmit = async (
+    data: z.infer<typeof signupSchema>,
+    e?: React.BaseSyntheticEvent
+  ) => {
+    e?.preventDefault();
     try {
       const response = await fetch("/api/sign-up", {
         method: "POST",

@@ -97,21 +97,19 @@ const Topbar = () => {
             <Slot>
               <NavigationMenu>
                 <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuItem className="min-w-[10rem]">
-                      <NavigationMenuTrigger className="w-full min-w-[10rem] text-gray-700 hover:text-blue-600 flex items-center gap-2 cursor-pointer">
-                        <User className="w-4 h-4" />
-                        {username}
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent className="w-full min-w-[10rem]">
-                        <div
-                          className="w-full hover:cursor-pointer text-sm hover:bg-gray-100 text-center px-4 py-2"
-                          onClick={() => signOut()}
-                        >
-                          Sign Out
-                        </div>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
+                  <NavigationMenuItem className="min-w-[10rem]">
+                    <NavigationMenuTrigger className="w-full text-gray-700 hover:text-blue-600 flex items-center gap-2 cursor-pointer">
+                      <User className="w-4 h-4" />
+                      {username}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="w-full min-w-[10em]">
+                      <div
+                        className="w-full cursor-pointer text-sm hover:bg-gray-100 text-center px-4 py-2"
+                        onClick={() => signOut()}
+                      >
+                        Sign Out
+                      </div>
+                    </NavigationMenuContent>
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>

@@ -17,7 +17,8 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import dynamic from "next/dynamic";
 import { signinSchema } from "@/schemas/signinSchema";
 import axios from "axios";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const SignInAnimation = dynamic(() => import("@/components/SignInAnimation"), {
   ssr: false,
@@ -25,6 +26,14 @@ const SignInAnimation = dynamic(() => import("@/components/SignInAnimation"), {
 
 const SignInPage = () => {
   const [showPassword, setShowPassword] = React.useState<boolean>(false);
+  const router = useRouter();
+  const {data : session , status} = useSession();
+
+  React.useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/"); 
+    }
+  }, [status, router]);
   const {
     register,
     handleSubmit,
@@ -43,10 +52,12 @@ const SignInPage = () => {
       const response = await axios.post("/api/sign-in", data);
       console.log(response);
       signIn("credentials", {
-        redirect : false,
+        redirect: false,
         email: data.email,
         password: data.password,
       });
+
+      router.push("/");
     } catch (error) {
       console.error("Axios error:", error);
     }
@@ -111,7 +122,7 @@ const SignInPage = () => {
                     className={
                       "text-muted-foreground font-medium cursor-pointer"
                     }
-                    onClick={() => signIn("google")}
+                    onClick={() => signIn("google", { callbackUrl: "/" })}
                   >
                     Continue with Google
                   </div>

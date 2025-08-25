@@ -21,8 +21,6 @@ export const metadata: Metadata = {
   description: "Travel Companion",
 };
 
-const dbConnection = await dbConnect();
-
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -20,11 +20,10 @@ const HomePage = () => {
                         <span className="text-hero-text">Discover Your Perfect</span>
                         <br/>
                         <span
-                            className="bg-gradient-to-r from-hero-text to-hero-accent bg-clip-text text-transparent"
+                            className="bg-gradient-to-r from-hero-text text-white to-hero-accent bg-clip-text"
                             style={{
                                 background: 'var(--text-gradient)',
                                 WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
                                 backgroundClip: 'text'
                             }}
                         >

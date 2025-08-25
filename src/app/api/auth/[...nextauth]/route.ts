@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import UserModel from "@/models/user.model";
 import { compare } from "bcrypt";
+import dbConnect from "@/lib/dbConnect";
 
 declare module "next-auth" {
   interface Session {
@@ -58,6 +59,7 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, account, profile }) {
+      const dbConnection = await dbConnect();
       if (account && profile) {
         // Check if the user exists in DB
         let user = await UserModel.findOne({ email: profile.email });
