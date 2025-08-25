@@ -3,9 +3,12 @@ import bcrypt from "bcrypt"
 
 export interface UserType extends Document {
     name: string,
+    username : string,
+    address : string,
     email: string,
     phone: number,
     password: string,
+    isPasswordValid(password: string): Promise<boolean>;
 }
 
 const userSchema: Schema<UserType> = new Schema<UserType>({
@@ -13,6 +16,13 @@ const userSchema: Schema<UserType> = new Schema<UserType>({
         type: String,
         required: true,
         trim: true,
+    },
+    username : {
+        type : String,
+        trim : true
+    } ,
+    address : {
+        type : String,
     },
     email: {
         type: String,
@@ -23,12 +33,10 @@ const userSchema: Schema<UserType> = new Schema<UserType>({
     },
     password: {
         type: String,
-        required: true,
         minLength: [8, "Password too short"],
     },
     phone: {
         type: Number,
-        required: true,
         unique: true,
     }
 }, {

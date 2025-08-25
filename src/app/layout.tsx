@@ -3,6 +3,8 @@ import { Playfair_Display} from "next/font/google";
 import {Inter} from "next/font/google"
 import "./globals.css";
 import dbConnect from "@/lib/dbConnect";
+import { SessionProvider } from "next-auth/react";
+import AppSessionProvider from "./sessionProvider";
 
 const playfair = Playfair_Display({
     variable: "--font-playfair-display",
@@ -28,11 +30,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${playfair.variable} ${inter.className} antialiased`}
-      >
+      <AppSessionProvider >
+        <body
+        className={`${playfair.variable} ${inter.className} antialiased`}>
         {children}
-      </body>
+        </body>
+      </AppSessionProvider>
+      
     </html>
   );
 }
