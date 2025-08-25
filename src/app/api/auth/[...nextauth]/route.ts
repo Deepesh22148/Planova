@@ -47,7 +47,7 @@ const authOptions: NextAuthOptions = {
 
         return {
           id: (user._id as { toString: () => string }).toString(),
-          name: user.username,
+          username: user.username,
           email: user.email,
         };
       },
@@ -58,28 +58,37 @@ const authOptions: NextAuthOptions = {
     maxAge: 3 * 24 * 60 * 60, // 3 days
   },
   callbacks: {
-    async jwt({ token, account, profile }) {
-      const dbConnection = await dbConnect();
-      if (account && profile) {
-        // Check if the user exists in DB
-        let user = await UserModel.findOne({ email: profile.email });
-        if (!user) {
-          user = await UserModel.create({
+    async jwt({ token, account, profile, user }) {
+      await dbConnect();
+
+      // Google login
+      if (account?.provider === "google" && profile?.email) {
+        let dbUser = await UserModel.findOne({ email: profile.email });
+
+        if (!dbUser) {
+          dbUser = await UserModel.create({
             name: profile.name,
             email: profile.email,
-            username: profile.email ? profile.email.split("@")[0] : "user", 
+            username: profile.email.split("@")[0],
           });
         }
-        token.username = user.username;
-        token.id = (user._id as any).toString();
+
+        token.id = (dbUser._id as unknown as { toString: () => string }).toString();
+        token.username = dbUser.username;
       }
+
+      // Credentials login
+      if (user) {
+        token.id = (user as any).id;
+        token.username = (user as any).username;
+      }
+
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
-      if (session.user && token.sub) {
-        (session.user as { id?: string }).id =  token.id as string;
-        (session.user as { username?: string }).username=  token.username as string;
-        
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.username = token.username as string;
       }
       return session;
     },

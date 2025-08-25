@@ -27,11 +27,11 @@ const SignInAnimation = dynamic(() => import("@/components/SignInAnimation"), {
 const SignInPage = () => {
   const [showPassword, setShowPassword] = React.useState<boolean>(false);
   const router = useRouter();
-  const {data : session , status} = useSession() ?? "";
+  const { data: session, status } = useSession() ?? "";
 
   React.useEffect(() => {
     if (status === "authenticated") {
-      router.push("/"); 
+      router.push("/");
     }
   }, [status, router]);
   const {
@@ -47,17 +47,22 @@ const SignInPage = () => {
     e?: React.BaseSyntheticEvent
   ) => {
     e?.preventDefault();
-    console.log("Form submitted:", data);
     try {
       const response = await axios.post("/api/sign-in", data);
       console.log(response);
-      signIn("credentials", {
+      const signInResponse = await signIn("credentials", {
         redirect: false,
         email: data.email,
         password: data.password,
+        callbackUrl: "/",
       });
 
-      router.push("/");
+      if (signInResponse && signInResponse.ok) {
+        router.push(signInResponse.url || "/");
+      } else if (signInResponse && signInResponse.error) {
+        // Optionally show error to user
+        console.error("Sign in error:", signInResponse.error);
+      }
     } catch (error) {
       console.error("Axios error:", error);
     }

@@ -17,7 +17,7 @@ import { signupSchema } from "@/schemas/signupSchema";
 import { z } from "zod";
 import dynamic from "next/dynamic";
 import axios from "axios";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const SignUpAnimation = dynamic(() => import("@/components/SignUpAnimation"), {
@@ -31,7 +31,7 @@ const SignUpPage = () => {
   const [phone, setPhone] = React.useState<string>("");
   const router = useRouter();
   const { data: session, status } = useSession() ?? "";
-
+  const [message, setMessage] = React.useState<string>("");
   React.useEffect(() => {
     if (status === "authenticated") {
       router.push("/");
@@ -64,9 +64,28 @@ const SignUpPage = () => {
         },
         body: JSON.stringify(data),
       });
-      console.log(response);
+      const user = await response.json();
+      if (response.ok && user.data.email) {
+        // Automatically sign in the user
+        const signInResponse = await signIn("credentials", {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+        });
+
+        setMessage(user.message);
+
+        if (signInResponse?.ok) {
+          router.push("/"); // redirect to home
+        } else {
+          alert("Internal Error occured while checking your details!");
+        }
+      } else {
+        alert(user.message || "Signup failed. Please try again.");
+        return;
+      }
     } catch (error) {
-      console.error("Axios error:", error);
+      console.error("Axios error:", message);
     }
   };
 
