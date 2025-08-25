@@ -27,7 +27,7 @@ const SignInAnimation = dynamic(() => import("@/components/SignInAnimation"), {
 const SignInPage = () => {
   const [showPassword, setShowPassword] = React.useState<boolean>(false);
   const router = useRouter();
-  const {data : session , status} = useSession();
+  const {data : session , status} = useSession() ?? "";
 
   React.useEffect(() => {
     if (status === "authenticated") {

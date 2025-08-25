@@ -30,7 +30,7 @@ const SignUpPage = () => {
     React.useState<boolean>(false);
   const [phone, setPhone] = React.useState<string>("");
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession() ?? "";
 
   React.useEffect(() => {
     if (status === "authenticated") {
