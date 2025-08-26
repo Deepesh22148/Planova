@@ -23,6 +23,12 @@ import { useRouter } from "next/navigation";
 const SignUpAnimation = dynamic(() => import("@/components/SignUpAnimation"), {
   ssr: false,
 });
+const LoadingAnimation = dynamic(
+  () => import("@/components/LoadingAnimation"),
+  {
+    ssr: false,
+  }
+);
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = React.useState<boolean>(false);
@@ -32,6 +38,7 @@ const SignUpPage = () => {
   const router = useRouter();
   const { data: session, status } = useSession() ?? "";
   const [message, setMessage] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(false);
   React.useEffect(() => {
     if (status === "authenticated") {
       router.push("/");
@@ -56,6 +63,7 @@ const SignUpPage = () => {
     e?: React.BaseSyntheticEvent
   ) => {
     e?.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch("/api/sign-up", {
         method: "POST",
@@ -73,6 +81,7 @@ const SignUpPage = () => {
           password: data.password,
         });
 
+        setLoading(false);
         setMessage(user.message);
 
         if (signInResponse?.ok) {
@@ -81,6 +90,7 @@ const SignUpPage = () => {
           alert("Internal Error occured while checking your details!");
         }
       } else {
+        setLoading(false);
         alert(user.message || "Signup failed. Please try again.");
         return;
       }
@@ -89,6 +99,19 @@ const SignUpPage = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div
+        className="min-h-screen w-screen flex items-center justify-center bg-white"
+        role="status"
+        aria-live="polite"
+      >
+        <div className="flex flex-col items-center gap-4">
+          <LoadingAnimation />
+        </div>
+      </div>
+    );
+  }
   return (
     <DashboardLayout>
       <div className="flex flex-row-reverse justify-center gap-3 items-center min-h-screen font-playfair-display bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 p-4">

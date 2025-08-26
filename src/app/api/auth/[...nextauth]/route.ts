@@ -61,26 +61,29 @@ const authOptions: NextAuthOptions = {
     async jwt({ token, account, profile, user }) {
       await dbConnect();
 
-      // Google login
-      if (account?.provider === "google" && profile?.email) {
-        let dbUser = await UserModel.findOne({ email: profile.email });
+      // Initial sign-in
+      if (account) {
+        if (account.provider === "google" && token.email) {
+          let dbUser = await UserModel.findOne({ email: token.email });
 
-        if (!dbUser) {
-          dbUser = await UserModel.create({
-            name: profile.name,
-            email: profile.email,
-            username: profile.email.split("@")[0],
-          });
+          if (!dbUser && profile?.email) {
+            dbUser = await UserModel.create({
+              name: profile.name,
+              email: profile.email,
+              username: profile.email.split("@")[0],
+            });
+          }
+
+          if (dbUser) {
+            token.id = (dbUser._id as any).toString();
+            token.username = dbUser.username;
+          }
         }
 
-        token.id = (dbUser._id as unknown as { toString: () => string }).toString();
-        token.username = dbUser.username;
-      }
-
-      // Credentials login
-      if (user) {
-        token.id = (user as any).id;
-        token.username = (user as any).username;
+        if (account.provider === "credentials" && user) {
+          token.id = (user as any).id;
+          token.username = (user as any).username;
+        }
       }
 
       return token;

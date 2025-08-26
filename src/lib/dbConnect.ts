@@ -4,7 +4,8 @@ type ConnectionObject = {
     isConnected?: number;
 }
 
-const connection: ConnectionObject = {};
+const connection: ConnectionObject = (global as any).mongoose || {};
+(global as any).mongoose = connection;
 
 const dbConnect = async () => {
     if(connection.isConnected) {
@@ -20,8 +21,6 @@ const dbConnect = async () => {
     }
     catch(e) {
         console.error("database connection failed : " ,e);
-
-        process.exit(1);
     }
 }
 

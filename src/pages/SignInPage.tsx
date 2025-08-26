@@ -24,10 +24,18 @@ const SignInAnimation = dynamic(() => import("@/components/SignInAnimation"), {
   ssr: false,
 });
 
+const LoadingAnimation = dynamic(
+  () => import("@/components/LoadingAnimation"),
+  {
+    ssr: false,
+  }
+);
+
 const SignInPage = () => {
   const [showPassword, setShowPassword] = React.useState<boolean>(false);
   const router = useRouter();
   const { data: session, status } = useSession() ?? "";
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (status === "authenticated") {
@@ -47,6 +55,7 @@ const SignInPage = () => {
     e?: React.BaseSyntheticEvent
   ) => {
     e?.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post("/api/sign-in", data);
       console.log(response);
@@ -56,7 +65,7 @@ const SignInPage = () => {
         password: data.password,
         callbackUrl: "/",
       });
-
+      setLoading(false);
       if (signInResponse && signInResponse.ok) {
         router.push(signInResponse.url || "/");
       } else if (signInResponse && signInResponse.error) {
@@ -67,6 +76,20 @@ const SignInPage = () => {
       console.error("Axios error:", error);
     }
   };
+
+  if (loading) {
+    return (
+      <div
+        className="min-h-screen w-screen flex items-center justify-center bg-white"
+        role="status"
+        aria-live="polite"
+      >
+        <div className="flex flex-col items-center gap-4">
+          <LoadingAnimation />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <DashboardLayout>
