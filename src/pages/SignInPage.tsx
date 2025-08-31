@@ -11,7 +11,7 @@ import { Eye, EyeOff, Key, Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from "zod";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import dynamic from "next/dynamic";
