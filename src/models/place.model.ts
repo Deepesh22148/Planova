@@ -9,6 +9,7 @@ export interface placeDescriptionType extends Document {
     days: string[], // days on which it is open default all seven days
     latitude: number,
     longitude: number,
+    address : string
 }
 
 const placeDescriptionSchema: Schema<placeDescriptionType> = new Schema({
@@ -41,6 +42,10 @@ const placeDescriptionSchema: Schema<placeDescriptionType> = new Schema({
             type: [String],
             required: true,
             default: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        },
+        address : {
+            type : String ,
+            requried : true,
         },
         latitude: {
             type: Number,
